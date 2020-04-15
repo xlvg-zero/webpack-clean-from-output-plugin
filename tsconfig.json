@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "ES2015"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "libs", "config"]
+}

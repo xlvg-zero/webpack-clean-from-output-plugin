@@ -2,8 +2,10 @@
 const { terser } = require('rollup-plugin-terser');
 const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
-const typescript = require('@rollup/plugin-typescript');
-// const pkg = require('./package.json');
+const typescript = require('rollup-plugin-typescript2');
+const pkg = require('../package.json');
+
+// console.log({ pkg });
 
 module.exports = {
   input: 'src/index.ts',
@@ -14,11 +16,25 @@ module.exports = {
     //   dir: 'dist',
     //   format: 'cjs',
     // },
+    // {
+    //   name: "highest-z-index-of-document",
+    //   file: 'libs/bundle.min.js',
+    //   format: 'umd',
+    //   // name: 'version',
+    //   plugins: [terser()],
+    // },
     {
-      name: "highest-z-index-of-document",
-      file: 'libs/bundle.min.js',
-      format: 'umd',
-      // name: 'version',
+      file: 'libs/bundle.js',
+      format: 'cjs',
+      exports: 'named',
+      sourcemap: true,
+      plugins: [terser()],
+    },
+    {
+      file: 'libs/bundle.es.js',
+      format: 'es',
+      exports: 'named',
+      sourcemap: true,
       plugins: [terser()],
     },
   ],
@@ -29,7 +45,9 @@ module.exports = {
       },
     }),
     commonjs(),
-    typescript(),
+    typescript({
+      clean: true,
+    }),
     // babel({
     //   exclude: 'node_modules/**',
     // }),
