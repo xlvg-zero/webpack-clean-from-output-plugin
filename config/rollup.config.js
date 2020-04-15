@@ -15,9 +15,10 @@ module.exports = {
     //   format: 'cjs',
     // },
     {
+      name: "highest-z-index-of-document",
       file: 'libs/bundle.min.js',
       format: 'umd',
-      name: 'version',
+      // name: 'version',
       plugins: [terser()],
     },
   ],

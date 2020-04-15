@@ -2,11 +2,11 @@
   "name": "highest-z-index-of-document",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "libs/bundle.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "rollup": "rollup --config config/rollup.config.js",
-    "prepublish": "rm -rf libs && npm run rollup && cp package.json libs/package.json && npm pack libs"
+    "prepublish": "rm -rf libs && npm run rollup"
   },
   "author": "Arjun Raju Pillai <revarjunr@gmail.com>",
   "license": "ISC",
