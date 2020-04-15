@@ -8,7 +8,7 @@ const pkg = require('../package.json');
 // console.log({ pkg });
 
 module.exports = {
-  input: 'src/index.ts',
+  input: 'src/lib/index.ts',
   // external: [makeExternalPredicate(externals)],
   output: [
     // {

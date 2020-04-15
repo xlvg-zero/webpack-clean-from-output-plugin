@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig",
+  "include": ["src/lib/index.ts"],
+  "compilerOptions": {
+      "outDir": "libs",
+      "declaration": true,
+      "declarationMap": true,
+      "isolatedModules": false,
+      "noEmit": false,
+      "allowJs": false,
+      "emitDeclarationOnly": true
+  },
+  "exclude": ["**/*.test.ts"]
+}
