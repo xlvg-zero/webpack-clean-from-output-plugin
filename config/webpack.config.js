@@ -8,25 +8,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 
+const terserWebpackPlugin = require('terser-webpack-plugin');
+const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+
 const extractFilename = require('./extractFilename');
+const { miniCssInitialized, stylusDevModuleRule, stylusProdModuleRule } = require('./styleConfigs');
+const { babelLoaderConfig, babelTestLoaderConfig } = require('./jsTsConfigs');
 
 const pkg = require('../package.json');
-
-function generateTsLoaderConfig(type = "dev") {
-  if (type === "production") {
-    return {
-      loader: "babel-loader",
-      // options: {
-      //   configFile: resolve(__dirname, '..', 'tsconfig.prod.json'),
-      // },
-    };
-  } else return {
-    loader: "babel-loader",
-    // options: {
-    //   configFile: resolve(__dirname, '..', 'tsconfig.dev.json'),
-    // },
-  };
-};
 
 const developmentConfig = {
   entry: resolve(__dirname, '..', 'src', 'module', 'index.tsx'),
@@ -36,14 +25,8 @@ const developmentConfig = {
   },
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: [
-          "babel-loader",
-          generateTsLoaderConfig("dev"),
-        ],
-        exclude: [/\.test.ts$/]
-      },
+      babelLoaderConfig,
+      stylusDevModuleRule,
     ],
   },
   mode: 'development',
@@ -66,7 +49,8 @@ const testConfig = {
   },
   module: {
     rules: [
-      { test: /\.test.ts$/, use: ["mocha-loader", generateTsLoaderConfig("dev")] },
+      babelTestLoaderConfig,
+      stylusDevModuleRule,
     ],
   },
   mode: 'development',
@@ -81,6 +65,9 @@ const testConfig = {
 const productionConfig = {
   entry: resolve(__dirname, '..', 'src', 'lib', 'index.ts'),
   mode: 'production',
+  optimization: {
+    minimizer: [new terserWebpackPlugin(), new optimizeCssAssetsWebpackPlugin()],
+  },
   output: {
     path: resolve(__dirname, '..', 'libs'),
     filename: extractFilename(pkg.bundle),
@@ -89,26 +76,19 @@ const productionConfig = {
   },
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: [
-          "babel-loader",
-          generateTsLoaderConfig("production"),
-        ],
-      },
+      babelLoaderConfig,
+      stylusProdModuleRule,
     ],
   },
+  plugins: [
+    miniCssInitialized,
+  ]
 };
 
 
 const commonConfig = {
   module: {
     rules: [
-      {
-        test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules|bower_components)/,
-      },
     ],
   },
   resolve: {

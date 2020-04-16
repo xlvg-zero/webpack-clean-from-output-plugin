@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-console.log({ ReactDOM });
+import './index.styl';
 
 ReactDOM.render(
   <div>App is running!</div>,
