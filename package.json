@@ -3,7 +3,7 @@
   "version": "0.0.11",
   "description": "",
   "main": "lib/bundle.js",
-  "bundle": "lib/bundle.es.js",
+  "bundle": "lib/bundle.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

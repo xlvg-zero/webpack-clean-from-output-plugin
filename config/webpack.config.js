@@ -1,7 +1,5 @@
 /* global __dirname, require, module*/
 
-const webpack = require('webpack');
-const glob = require('glob');
 const { resolve } = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -11,11 +9,8 @@ const merge = require('webpack-merge');
 const terserWebpackPlugin = require('terser-webpack-plugin');
 const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 
-const extractFilename = require('./extractFilename');
 const { miniCssInitialized, stylusDevModuleRule, stylusProdModuleRule } = require('./styleConfigs');
 const { babelLoaderConfig, babelTestLoaderConfig } = require('./jsTsConfigs');
-
-const pkg = require('../package.json');
 
 const developmentConfig = {
   entry: resolve(__dirname, '..', 'src', 'module', 'index.tsx'),
@@ -70,7 +65,7 @@ const productionConfig = {
   },
   output: {
     path: resolve(__dirname, '..', 'libs'),
-    filename: extractFilename(pkg.bundle),
+    filename: 'bundle.js',
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
