@@ -11,12 +11,17 @@ const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 
 const { miniCssInitialized, stylusDevModuleRule, stylusProdModuleRule } = require('./styleConfigs');
 const { babelLoaderConfig, babelTestLoaderConfig } = require('./jsTsConfigs');
+const { generateEntryPaths, generateOutputNameJS, generateOutputNameCSS } = require('./resolution');
 
 const developmentConfig = {
   entry: resolve(__dirname, '..', 'src', 'module', 'index.tsx'),
   output: {
     path: resolve(__dirname, '..', 'dist'),
     filename: '[name].js',
+    filename: (chunkData) => {
+      console.log({ chunkData, 'chunkData.chunk.entryModule': chunkData.chunk.entryModule });
+      return '[name].js';
+    },
   },
   module: {
     rules: [
@@ -58,14 +63,18 @@ const testConfig = {
 };
 
 const productionConfig = {
-  entry: resolve(__dirname, '..', 'src', 'lib', 'index.ts'),
+  // entry: resolve(__dirname, '..', 'src', 'lib', 'index.ts'),
+  entry: generateEntryPaths,
   mode: 'production',
   optimization: {
     minimizer: [new terserWebpackPlugin(), new optimizeCssAssetsWebpackPlugin()],
   },
   output: {
     path: resolve(__dirname, '..', 'libs'),
-    filename: 'bundle.js',
+    // filename: 'bundle.js',
+    filename: (chunkData) => {
+      return generateOutputNameJS('components', chunkData);
+    },
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
