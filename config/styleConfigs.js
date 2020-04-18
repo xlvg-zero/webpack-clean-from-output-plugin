@@ -1,15 +1,8 @@
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const { generateOutputNameCSS } = require('./resolution');
-
 const miniCssInitialized = new miniCssExtractPlugin({
-  // filename: '[name].css',
-  // chunkFilename: '[id].css',
-  moduleFilename: (chunkData) => {
-    console.log({ chunkData });
-    return generateOutputNameCSS('components', chunkData, ['core']);
-    // return '[name].css';
-  },
+  filename: '[name].css',
+  chunkFilename: '[id].css',
 });
 
 const stylusProdModuleRule = {
