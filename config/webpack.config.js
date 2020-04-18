@@ -61,8 +61,12 @@ const productionConfig = {
   entry: resolve(__dirname, '..', 'src', 'lib', 'index.ts'),
   mode: 'production',
   optimization: {
-    minimizer: [new terserWebpackPlugin(), new optimizeCssAssetsWebpackPlugin()],
+    minimizer: [
+      new terserWebpackPlugin({ terserOptions: { keep_classnames: true, keep_fnames: true } }),
+      new optimizeCssAssetsWebpackPlugin()
+    ],
   },
+  target: 'node',
   output: {
     path: resolve(__dirname, '..', 'libs'),
     filename: 'bundle.js',

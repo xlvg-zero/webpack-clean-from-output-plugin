@@ -1,10 +1,10 @@
 {
-  "name": "react-reusable-component-boilerplate",
-  "version": "0.0.11",
+  "name": "webpack-clean-from-output-plugin",
+  "version": "0.0.13",
   "description": "",
-  "main": "lib/bundle.js",
-  "bundle": "lib/bundle.js",
-  "types": "lib/index.d.ts",
+  "main": "libs/bundle.js",
+  "bundle": "libs/bundle.js",
+  "types": "libs/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-types": "tsc",
@@ -45,6 +45,7 @@
   "dependencies": {
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
+    "@types/webpack": "^4.41.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
